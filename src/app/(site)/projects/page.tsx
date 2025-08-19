@@ -1,5 +1,4 @@
 import Projects from "@/components/global/Projects";
-import { getProjects } from "@/sanity/utils/sanity.query";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,8 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Project() {
-  const projects = await getProjects();
-
   return (
     <>
       <Projects />
