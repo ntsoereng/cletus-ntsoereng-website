@@ -4,8 +4,6 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-// import fallbackImage from '/project/project-cover.png';
-
 type Props = {
   params: Promise<{
     project: string;
@@ -32,41 +30,58 @@ export default async function Project({ params }: Props) {
   const project = await getSingleProject(slug);
 
   return (
-    <main className="max-w-6xl mx-auto lg:px-16 px-6 lg:mt-40 mt-32">
-      <div className="max-w-3xl mx-auto">
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-4">
-          <h1 className="font-bold lg:text-3xl text-xl lg:leading-tight mb-4">
-            {project.name}
-          </h1>
+    <main className="section-shell pt-36 sm:pt-44">
+      <article className="mx-auto max-w-5xl">
+        <Link href="/projects" className="text-link text-sm">
+          <span aria-hidden="true">←</span> All projects
+        </Link>
+
+        <header className="mt-10 grid items-end gap-8 lg:grid-cols-[1fr_auto]">
+          <div>
+            <p className="eyebrow">Case study</p>
+            <h1 className="mt-5 text-balance text-5xl font-black leading-none tracking-[-0.05em] sm:text-6xl">
+              {project.name}
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg leading-8">{project.tagline}</p>
+          </div>
+          {project.projectUrl && (
           <a
             href={project.projectUrl}
+            target="_blank"
             rel="noreferrer noopener"
-            className="dark:bg-[#1d1d20] bg-slate-200 mb-4 border border-slate-300 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 rounded-md px-4 py-2"
+            className="button-primary"
           >
-            View Project &rarr;
+            Visit live website <span aria-hidden="true">↗</span>
           </a>
-        </div>
+          )}
+        </header>
 
         <Image
           src={project.coverImage?.image || "/project/project-cover.png"}
-          width={900}
-          height={280}
+          width={1400}
+          height={875}
           alt={project.coverImage?.alt || project.name}
-          className="w-full rounded-xl border border-slate-300 dark:border-slate-700"
+          priority
+          className="mt-14 aspect-[16/10] w-full rounded-3xl border border-slate-200 object-cover dark:border-white/10"
         />
 
-        <div className="flex flex-col gap-y-6 mt-8 leading-7">
+        <div className="prose-copy mx-auto mt-16 flex max-w-3xl flex-col gap-y-6 text-lg leading-8">
           <PortableText value={project.description} />
         </div>
-        <div className="mt-20 flex items-center justify-start">
-          <Link
-            href="/projects"
-            className="text-sm font-semibold rounded-md px-4 py-2 hover:bg-firstColor dark:hover:bg-firstColor duration-300 bg-slate-500 dark:bg-slate-800 text-slate-100"
+
+        <aside className="mx-auto mt-20 flex max-w-3xl flex-col items-start justify-between gap-6 border-t border-slate-200 pt-10 dark:border-white/10 sm:flex-row sm:items-center">
+          <div>
+            <h2 className="text-xl font-black">Like what you see?</h2>
+            <p className="mt-1 text-sm">Let&apos;s talk about what I can build for you.</p>
+          </div>
+          <a
+            href="mailto:contact@cletusntsoereng.com?subject=Project%20enquiry"
+            className="button-secondary"
           >
-            &larr; &nbsp; Back to all projects
-          </Link>
-        </div>
-      </div>
+            Start a project
+          </a>
+        </aside>
+      </article>
     </main>
   );
 }

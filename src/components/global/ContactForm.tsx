@@ -1,67 +1,67 @@
 "use client";
 
 import { ValidationError, useForm } from "@formspree/react";
-import { BiPaperPlane } from "react-icons/bi";
 
 export default function ContactForm() {
   const [state, handleSubmit] = useForm("mnqlykrw");
 
   if (state.succeeded) {
     return (
-      <section className="rounded-lg p-8 dark:bg-[#1d1d20] bg-firstColor/30 text-firstColor border dark:border-slate-500 border-slate-300">
-        <p className="text-base tracking-wider">
-          Thanks for your message. I&apos;ll get back to you real soon!
+      <div role="status" className="rounded-3xl border border-emerald-400/30 bg-emerald-400/10 p-8">
+        <p className="font-bold text-emerald-300">Message received—thank you.</p>
+        <p className="mt-2 text-sm leading-6 text-slate-300">
+          I&apos;ll read through the details and get back to you soon.
         </p>
-      </section>
+      </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 rounded-md sm:w-fit w-full">
-      <h4 className="tracking-wider text-md mb-8 text-gray-500 dark:text-gray-400">
-        Send me a message
-      </h4>
+    <form onSubmit={handleSubmit} className="grid gap-5" aria-label="Project enquiry">
       <div>
-        <div className="mb-8">
-          <label htmlFor="email" className="sr-only">
-            Your email address
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Your email address"
-            required
-            aria-required
-            className="valid:bg-none w-full focus:border-b-2 focus:outline-none focus:border-firstColor dark:focus:border-firstColor px-2 py-1 border-b dark:border-slate-500 border-slate-400 bg-white dark:bg-darkColor"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="message" className="sr-only">
-            Your message...
-          </label>
-          <textarea
-            autoComplete="off"
-            required
-            aria-required
-            rows={5}
-            placeholder="Your message..."
-            name="message"
-            id="message"
-            className="w-full focus:border-b-2 focus:outline-none focus:border-firstColor dark:focus:border-firstColor px-2 py-1 border-b dark:border-slate-500 border-slate-400 bg-white dark:bg-darkColor"
-          ></textarea>
-        </div>
-        <div className="mb-4 flex items-center justify-center">
-          <button
-            disabled={state.submitting}
-            type="submit"
-            className="flex items-center justify-center dark:bg-darkColorAlt bg-slate-500 dark:hover:bg-firstColor hover:bg-firstColor text-white px-4 py-2 w-full rounded-md duration-300"
-          >
-            Send Message &nbsp; <BiPaperPlane />
-          </button>
-        </div>
-        <ValidationError errors={state.errors} />
+        <label htmlFor="name" className="form-label">Your name</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          autoComplete="name"
+          placeholder="Jane Smith"
+          required
+          className="form-field"
+        />
       </div>
+      <div>
+        <label htmlFor="email" className="form-label">Email address</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          autoComplete="email"
+          placeholder="jane@company.com"
+          required
+          className="form-field"
+        />
+        <ValidationError prefix="Email" field="email" errors={state.errors} />
+      </div>
+      <div>
+        <label htmlFor="message" className="form-label">Tell me about the project</label>
+        <textarea
+          required
+          rows={5}
+          placeholder="A little about your goals, timeline, and what success looks like..."
+          name="message"
+          id="message"
+          className="form-field resize-y"
+        />
+        <ValidationError prefix="Message" field="message" errors={state.errors} />
+      </div>
+      <button
+        disabled={state.submitting}
+        type="submit"
+        className="inline-flex min-h-13 items-center justify-center rounded-xl bg-white px-6 py-3 font-bold text-ink transition hover:-translate-y-0.5 hover:bg-sky-300 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {state.submitting ? "Sending…" : "Send project enquiry →"}
+      </button>
     </form>
   );
 }

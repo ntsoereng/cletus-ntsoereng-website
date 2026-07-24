@@ -24,17 +24,6 @@ export type PageType = {
   content: PortableTextBlock[];
 };
 
-export type ExperienceType = {
-  _id: string;
-  companyName: string;
-  jobTitle: string;
-  logo: string;
-  url: string;
-  description: string;
-  startDate: Date;
-  endDate: Date;
-};
-
 export type ProjectType = {
   _id: string;
   name: string;

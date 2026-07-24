@@ -4,15 +4,11 @@ export const navLinks = [
     slug: "/",
   },
   {
-    title: "About",
-    slug: "/about",
-  },
-  {
-    title: "Projects",
+    title: "Work",
     slug: "/projects",
   },
   {
-    title: "Contact",
-    slug: "/contact",
+    title: "About",
+    slug: "/about",
   },
 ];

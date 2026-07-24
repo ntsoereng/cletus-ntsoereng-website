@@ -1,19 +1,24 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "../globals.css";
 import Navbar from "@/components/global/Navbar";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { ThemeSwitcher } from "@/components/theme/ThemeSwitcher";
 import Footer from "@/components/global/Footer";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Cletus Ntsoereng - Web Developer, Software Engineer",
-  description: "Web Developer, Software Engineer, and Data Guy",
+  metadataBase: new URL("https://cletusntsoereng.com"),
+  title: {
+    default: "Cletus Ntsoereng — Web Developer",
+    template: "%s — Cletus Ntsoereng",
+  },
+  description:
+    "Web developer designing and building clear, fast, accessible websites for ambitious businesses and people.",
+  openGraph: {
+    title: "Cletus Ntsoereng — Web Developer",
+    description:
+      "Strategy, design, and frontend development for websites that move businesses forward.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -23,13 +28,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.className} selection:bg-fuchsia-600 selection:text-white bg-whiteColor dark:bg-darkColor`}
-      >
+      <body>
         <ThemeProvider
           defaultTheme="system"
           attribute="class"
-          enableSystem={false}
+          enableSystem
         >
           <Navbar />
           {children}
